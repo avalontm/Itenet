@@ -8,14 +8,15 @@ public partial class App : Application
 	public App()
 	{
 		InitializeComponent();
-
-		MainPage = new AppShell();
+        FireBaseManager.Init();
+        MainPage = new AppShell();
 	}
 
     protected override void OnStart()
     {
         base.OnStart();
         Debug.WriteLine($"[OnStart]");
+
 #if __MOBILE__
         CrossFirebaseCloudMessaging.Current.NotificationTapped += Current_NotificationTapped;
         CrossFirebaseCloudMessaging.Current.Error += Current_Error;
