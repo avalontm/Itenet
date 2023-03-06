@@ -1,6 +1,8 @@
 ﻿using Firebase.Database;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +24,12 @@ namespace Itenet
               });
         }
 
-        public static async Task<List<FirebaseObject<T>>> Get<T>(string name)
+        public static async Task<T> Get<T>(string name)
         {
-            var items = await firebaseClient.Child(name).OnceAsync<T>();
-            return items.ToList();
+            string response = await firebaseClient.Child(name).OnceAsJsonAsync();
+            Debug.WriteLine($"[GET] {response}");
+            return JsonConvert.DeserializeObject<T>(response);
         }
+
     }
 }

@@ -21,11 +21,11 @@ public partial class MainPage : ContentPage
 
     async void onGetTrabajos()
     {
-        var items = await FireBaseManager.Get<object>("trabajos");
+        var items = await FireBaseManager.Get<List<object>>("noticias");
 
         foreach (var item in items)
         {
-            Console.WriteLine($"{item.Key} is {item.Object}.");
+            Console.WriteLine($"{item}");
         }
 
     }

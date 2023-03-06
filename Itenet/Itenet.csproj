@@ -76,4 +76,6 @@
 		<PackageReference Include="Plugin.Firebase" Version="1.3.0" />
 	</ItemGroup>
 
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionItenetHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+
 </Project>
