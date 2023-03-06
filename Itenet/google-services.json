@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "329061063484",
+    "project_id": "itenet-25862",
+    "storage_bucket": "itenet-25862.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329061063484:android:f1a7ae42810b2a908c1c39",
+        "android_client_info": {
+          "package_name": "com.avalontm.itenet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329061063484-neqe3rqi9ruu90un6pjrgfoeqlaqmfao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVG-honP-xpBTpiVwRySBbtXVBZHcmDEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329061063484-neqe3rqi9ruu90un6pjrgfoeqlaqmfao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
