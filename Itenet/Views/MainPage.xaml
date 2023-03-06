@@ -14,7 +14,19 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="5" />
                     </Border.StrokeShape>
-                        <Label Margin="5" Text="{Binding titulo}" TextColor="{StaticResource Black}" FontAttributes="Bold"/>
+                        
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Margin="5" Text="{Binding titulo}" TextColor="{StaticResource Black}" FontAttributes="Bold"/>
+                        <Label Grid.Row="1" Margin="5" Text="{Binding mensaje}" TextColor="{StaticResource Black}" FontAttributes="None" LineBreakMode="MiddleTruncation"/>
+                        <Image Grid.Row="2" Margin="5" Source="{Binding imagen}" Aspect="Center"/>
+                    </Grid>
+                      
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

@@ -41,8 +41,22 @@ public partial class MainPage : ContentPage
     async void onNoticiaTapped(object sender, TappedEventArgs e)
     {
         Border borde = sender as Border;
-        await borde.ScaleTo(0.98, 50);
-        await borde.ScaleTo(1, 50);
+
+        if (borde != null)
+        {
+            Noticia noticia = borde.BindingContext as Noticia;
+
+            if (noticia != null)
+            {
+                if (!noticia.tapped)
+                {
+                    noticia.tapped = true;
+                    await borde.ScaleTo(0.98, 50);
+                    await borde.ScaleTo(1, 50);
+                    noticia.tapped = false;
+                }
+            }
+        }
     }
 
 }
