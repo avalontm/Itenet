@@ -7,7 +7,7 @@
         <CollectionView ItemsSource="{Binding Noticias}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border Margin="10,5,10,5" BackgroundColor="{StaticResource White}" MinimumHeightRequest="180">
+                <Border Margin="10,5,10,5" BackgroundColor="{AppThemeBinding Light={StaticResource White }, Dark={StaticResource Black}}" StrokeThickness="0.5" Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" MinimumHeightRequest="180">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer  Tapped="onNoticiaTapped" />
                     </Border.GestureRecognizers>
@@ -22,8 +22,8 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Margin="5" Text="{Binding titulo}" TextColor="{StaticResource Black}" FontAttributes="Bold"/>
-                        <Label Grid.Row="1" Margin="5" Text="{Binding mensaje}" TextColor="{StaticResource Black}" FontAttributes="None" LineBreakMode="MiddleTruncation"/>
+                        <Label Grid.Row="0" Margin="5" Text="{Binding titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold"/>
+                        <Label Grid.Row="1" Margin="5" Text="{Binding mensaje}" TextColor="{StaticResource Gray300}" FontAttributes="None" LineBreakMode="WordWrap" MaxLines="5"/>
                         <Image Grid.Row="2" Margin="5" Source="{Binding imagen}" Aspect="Center"/>
                     </Grid>
                       
