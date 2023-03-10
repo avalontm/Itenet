@@ -1,35 +1,92 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:bh="clr-namespace:Itenet.Behaviors"
              x:Class="Itenet.Views.MainPage">
 
+    <AbsoluteLayout>
 
-        <CollectionView ItemsSource="{Binding Noticias}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                <Border Margin="10,5,10,5" BackgroundColor="{AppThemeBinding Light={StaticResource White }, Dark={StaticResource Black}}" StrokeThickness="0.5" Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" MinimumHeightRequest="180">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer  Tapped="onNoticiaTapped" />
-                    </Border.GestureRecognizers>
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="5" />
-                    </Border.StrokeShape>
-                        
+        <!-- CONTENIDO -->
+        <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}" RefreshColor="Orange" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <CollectionView ItemsSource="{Binding Noticias}" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="10,5,10,5" BackgroundColor="{AppThemeBinding Light={StaticResource White }, Dark={StaticResource Black}}" StrokeThickness="0.5" Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}" MinimumHeightRequest="180">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer  Tapped="onNoticiaTapped" />
+                            </Border.GestureRecognizers>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" Margin="5" Text="{Binding titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold" FontSize="14"/>
+                                <Label Grid.Row="1" Margin="5" Text="{Binding mensaje}" TextColor="{StaticResource Gray300}" FontAttributes="None" LineBreakMode="WordWrap" MaxLines="6" FontSize="12"/>
+                                <Image Grid.Row="2" Margin="5" Source="{Binding imagen}" Aspect="Center"/>
+                            </Grid>
+
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- MENU ABAJO -->
+        <StackLayout Margin="0" AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.085" AbsoluteLayout.LayoutFlags="All">
+            <Grid Margin="0" BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray950}}" HeightRequest="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Margin="5" Text="{Binding titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold"/>
-                        <Label Grid.Row="1" Margin="5" Text="{Binding mensaje}" TextColor="{StaticResource Gray300}" FontAttributes="None" LineBreakMode="WordWrap" MaxLines="5"/>
-                        <Image Grid.Row="2" Margin="5" Source="{Binding imagen}" Aspect="Center"/>
+                        <ImageButton Grid.Row="0" Source="icon_home.png" WidthRequest="28" HeightRequest="28" Aspect="AspectFit" Clicked="onInicio" bh:TintColorBehavior.AttachBehavior="True"/>
+                        <Label Grid.Row="1" Text="Inicio" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
                     </Grid>
-                      
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
 
+                </Grid>
+                
+                <Grid Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <ImageButton Grid.Row="0" Source="icon_crear.png" WidthRequest="28" HeightRequest="28" Aspect="AspectFit" Clicked="onCrear" bh:TintColorBehavior.AttachBehavior="True"/>
+                        <Label Grid.Row="1" Text="Crear" VerticalTextAlignment="Center"  HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                    </Grid>
+                   
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <ImageButton Grid.Row="0" Source="icon_perfil.png" WidthRequest="28" HeightRequest="28" Aspect="AspectFit" Clicked="onPerfil" bh:TintColorBehavior.AttachBehavior="True"/>
+                        <Label Grid.Row="1" Text="Perfil" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                    </Grid>
+
+                </Grid>
+                
+            </Grid>
+        </StackLayout>
+    </AbsoluteLayout>
+      
 </ContentPage>

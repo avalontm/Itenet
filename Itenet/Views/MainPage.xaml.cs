@@ -1,9 +1,9 @@
-﻿using Android.Database.Sqlite;
-using Firebase.Database;
+﻿using Firebase.Database;
 using Firebase.Database.Query;
 using Itenet.Models;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace Itenet.Views;
 
@@ -20,10 +20,40 @@ public partial class MainPage : ContentPage
         }
     }
 
-	public MainPage()
+    bool _isRefreshing;
+    public bool IsRefreshing
+    {
+        get { return _isRefreshing; }
+        set
+        {
+            _isRefreshing = value;
+            OnPropertyChanged("IsRefreshing");
+        }
+    }
+
+    ICommand _refreshCommand;
+    public ICommand RefreshCommand
+    {
+        get { return _refreshCommand; }
+        set
+        {
+            _refreshCommand = value;
+            OnPropertyChanged("RefreshCommand");
+        }
+    }
+
+
+    public MainPage()
 	{
 		InitializeComponent();
+        RefreshCommand = new Command(onRefreshCommand);
         BindingContext = this;
+    }
+
+    async void onRefreshCommand(object obj)
+    {
+        await onGetTrabajos();
+        IsRefreshing = false;   
     }
 
     protected override void OnAppearing()
@@ -32,7 +62,7 @@ public partial class MainPage : ContentPage
 		onGetTrabajos();
     }
 
-    async void onGetTrabajos()
+    async Task onGetTrabajos()
     {
         Noticias = await FireBaseManager.Get<ObservableCollection<Noticia>>("noticias");
     }
@@ -59,5 +89,40 @@ public partial class MainPage : ContentPage
         }
     }
 
+
+    async void onInicio(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 50);
+            await button.ScaleTo(1, 50);
+        }
+        Debug.WriteLine($"[onInicio]");
+    }
+
+
+    async void onCrear(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 50);
+            await button.ScaleTo(1, 50);
+        }
+        Debug.WriteLine($"[onCrear]");
+    }
+
+
+    async void onPerfil(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 50);
+            await button.ScaleTo(1, 50);
+        }
+        Debug.WriteLine($"[onPerfil]");
+    }
 }
 

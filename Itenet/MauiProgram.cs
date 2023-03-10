@@ -2,6 +2,7 @@
 using Microsoft.Maui.LifecycleEvents;
 using Plugin.Firebase.CloudMessaging;
 using Plugin.Firebase.Shared;
+using CommunityToolkit.Maui;
 
 #if IOS
 using Plugin.Firebase.iOS;
@@ -19,7 +20,8 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-             .RegisterFirebaseServices()
+            .RegisterFirebaseServices()
+            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
