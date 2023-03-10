@@ -1,10 +1,8 @@
 ﻿using FastMember;
 using Firebase.Database;
 using Firebase.Database.Query;
-using Microsoft.Maui;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using static Android.Content.ClipData;
 
 namespace Itenet
 {
@@ -35,7 +33,7 @@ namespace Itenet
                 items.Add(item.Object);
             }
 
-            items.Reverse();    
+            items.Reverse();
             Debug.WriteLine($"[ITEMS] {JsonConvert.SerializeObject(items)}");
 
             return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(items));
