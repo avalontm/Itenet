@@ -110,7 +110,7 @@ public partial class MainPage : ContentPage
             await button.ScaleTo(0.95, 50);
             await button.ScaleTo(1, 50);
         }
-        Debug.WriteLine($"[onCrear]");
+        await this.Navigation.PushModalAsync(new CrearPage());
     }
 
 
