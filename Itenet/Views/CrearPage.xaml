@@ -22,7 +22,7 @@
 
             <ImageButton Margin="5" Grid.Column="0" Source="icon_cerrar.png" WidthRequest="32" HeightRequest="32" Aspect="AspectFit" Clicked="onCerrar" bh:TintColorBehavior.AttachBehavior="True"/>
 
-            <Button Margin="5" Grid.Column="2" Text="Publicar" Clicked="onPublicar" TextColor="White" BackgroundColor="#2897c7" WidthRequest="120" HeightRequest="42" IsEnabled="False" CornerRadius="20"/>
+            <Button Margin="5" Grid.Column="2" Text="Publicar" Clicked="onPublicar" TextColor="White" BackgroundColor="#2897c7" WidthRequest="120" HeightRequest="42" CornerRadius="20"/>
         </Grid>
 
         <Grid Grid.Row="1" Margin="5">
@@ -30,9 +30,9 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <Entry Grid.Row="0" Text="{Binding Titulo}" Placeholder="Añade un titulo" PlaceholderColor="#808080" FontAttributes="Bold" FontSize="18"/>
-            <Editor Grid.Row="1" Text="{Binding Mensaje}" Placeholder="Añade un mensaje" VerticalOptions="Fill" FontAttributes="None" FontSize="14"/>
+
+            <Entry Grid.Row="0" Text="{Binding Noticia.titulo}" Placeholder="Añade un titulo" PlaceholderColor="#808080" FontAttributes="Bold" FontSize="18"/>
+            <Editor Grid.Row="1" Text="{Binding Noticia.mensaje}" Placeholder="Añade un mensaje" VerticalOptions="Fill" FontAttributes="None" FontSize="14"/>
         </Grid>
 
         <Grid Grid.Row="2">

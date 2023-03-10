@@ -1,34 +1,26 @@
+using Itenet.Models;
+
 namespace Itenet.Views;
 
 public partial class CrearPage : ContentPage
 {
-    string _titulo;
-    public string Titutlo
+    Noticia _noticia;
+    public Noticia Noticia
     {
-        get { return _titulo; }
+        get { return _noticia; }
         set
         {
-            _titulo = value;
-            OnPropertyChanged(nameof(Titutlo));
+            _noticia = value;
+            OnPropertyChanged(nameof(Noticia));
         }
     }
 
-    string _mensaje;
-    public string Mensaje
-    {
-        get { return _mensaje; }
-        set
-        {
-            _mensaje = value;
-            OnPropertyChanged(nameof(Mensaje));
-        }
-    }
-    
     public static CrearPage Instance { get; private set; }
     public CrearPage()
 	{
 		InitializeComponent();
         Instance = this;
+        Noticia = new Noticia();
         BindingContext = this;
 	}
 
@@ -52,12 +44,15 @@ public partial class CrearPage : ContentPage
             await button.ScaleTo(0.95, 50);
             await button.ScaleTo(1, 50);
         }
-        await this.Navigation.PopModalAsync();	
+        await this.Navigation.PopModalAsync();
     }
 
     async void onPublicar(object sender, EventArgs e)
     {
+        Noticia.fecha = DateTime.Now;
 
+        await FireBaseManager.Post("noticias", Noticia);
+        await this.Navigation.PopModalAsync();
     }
 
    

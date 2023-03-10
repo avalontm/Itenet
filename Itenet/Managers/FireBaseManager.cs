@@ -1,11 +1,10 @@
-﻿using Firebase.Database;
+﻿using FastMember;
+using Firebase.Database;
+using Firebase.Database.Query;
+using Microsoft.Maui;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static Android.Content.ClipData;
 
 namespace Itenet
 {
@@ -24,12 +23,32 @@ namespace Itenet
               });
         }
 
-        public static async Task<T> Get<T>(string name)
+        public static async Task<T> Get<T>(string name, int start = 1, int limit = 10)
         {
-            string response = await firebaseClient.Child(name).OnceAsJsonAsync();
-            Debug.WriteLine($"[GET] {response}");
-            return JsonConvert.DeserializeObject<T>(response);
+            List<object> items = new List<object>();
+            var response = await firebaseClient.Child(name).OrderByKey().LimitToLast(limit).OnceAsync<object>();
+
+            foreach (var item in response)
+            {
+                ObjectAccessor wrapped = ObjectAccessor.Create(item.Object);
+                wrapped["id"] = item.Key;
+                items.Add(item.Object);
+            }
+
+            items.Reverse();    
+            Debug.WriteLine($"[ITEMS] {JsonConvert.SerializeObject(items)}");
+
+            return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(items));
         }
 
+        public static async Task<T> Post<T>(string name, T data)
+        {
+            var response = await firebaseClient.Child(name).PostAsync<T>(data);
+
+            ObjectAccessor wrapped = ObjectAccessor.Create(response.Object);
+            wrapped["id"] = response.Key;
+            Debug.WriteLine($"[ITEM] {JsonConvert.SerializeObject(response.Object)}");
+            return response.Object;
+        }
     }
 }
