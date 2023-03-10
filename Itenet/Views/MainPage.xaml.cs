@@ -110,7 +110,12 @@ public partial class MainPage : ContentPage
             await button.ScaleTo(0.95, 50);
             await button.ScaleTo(1, 50);
         }
-        await this.Navigation.PushModalAsync(new CrearPage());
+
+        //Mostramos la ventana de crear publicacion
+        if (CrearPage.Instance == null)
+        {
+            await this.Navigation.PushModalAsync(new CrearPage());
+        }
     }
 
 

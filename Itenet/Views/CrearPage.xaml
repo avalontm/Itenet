@@ -26,7 +26,13 @@
         </Grid>
 
         <Grid Grid.Row="1" Margin="5">
-            <Entry Text="{Binding Titulo}" Placeholder="Añade un titulo"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Entry Grid.Row="0" Text="{Binding Titulo}" Placeholder="Añade un titulo" PlaceholderColor="#808080" FontAttributes="Bold" FontSize="18"/>
+            <Editor Grid.Row="1" Text="{Binding Mensaje}" Placeholder="Añade un mensaje" VerticalOptions="Fill" FontAttributes="None" FontSize="14"/>
         </Grid>
 
         <Grid Grid.Row="2">
