@@ -23,12 +23,14 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
                                 <Label Grid.Row="0" Margin="5" Text="{Binding titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold" FontSize="14"/>
-                                <Label Grid.Row="1" Margin="5" Text="{Binding mensaje}" TextColor="{StaticResource Gray300}" FontAttributes="None" LineBreakMode="WordWrap" MaxLines="6" FontSize="12"/>
-                                <Image Grid.Row="2" Margin="5" Source="{Binding imagen}" Aspect="Center"/>
+                                <Label Grid.Row="1" Margin="5,0,0,0" Text="{Binding fecha, StringFormat='{}{0:MMMM dd, yyyy}'}" TextColor="LightGray" FontSize="8"/>
+                                <Label Grid.Row="2" Margin="5" Text="{Binding mensaje}" TextColor="{StaticResource Gray300}" FontAttributes="None" LineBreakMode="WordWrap" MaxLines="6" FontSize="12"/>
+                                <Image Grid.Row="3" Margin="5" Source="{Binding imagen}" Aspect="Center"/>
                             </Grid>
 
                         </Border>
