@@ -9,7 +9,7 @@ namespace Itenet
 {
     public static class StorageManager
     {
-        public static async Task Upload()
+        public static async Task<string> Upload()
         {
             var customFileType = new FilePickerFileType(
                 new Dictionary<DevicePlatform, IEnumerable<string>>
@@ -31,19 +31,25 @@ namespace Itenet
                 try
                 {
                     Stream fileToUpload = await result.OpenReadAsync();
-                    
+
                     var storage = CrossFirebaseStorage.Current.GetRootReference();
+                    string File = $"{DateTime.Now.ToString("yyyyMMdd_HHmmss")}_{result.FileName}";
 
                     await storage
-                         .GetChild($"{DateTime.Now.ToString("yyyyMMdd_HHmmss")}_{result.FileName}")
+                         .GetChild(File)
                          .PutStream(fileToUpload)
                          .AwaitAsync();
+
+                    return await storage.GetChild(File).GetDownloadUrlAsync();
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine($"[Upload] {ex}");
+                    return string.Empty;
                 }
             }
+
+            return string.Empty;
         }
     }
 }

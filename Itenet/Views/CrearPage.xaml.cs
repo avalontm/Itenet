@@ -49,9 +49,18 @@ public partial class CrearPage : ContentPage
 
     async void onPublicar(object sender, EventArgs e)
     {
+        string imagen = await StorageManager.Upload();
+
+        if(string.IsNullOrEmpty(imagen))
+        {
+            await DisplayAlert("Error", "No se pudo subir la imagen", "OK");
+            return;
+        }
+
         Noticia.fecha = DateTime.Now;
-        await StorageManager.Upload();
-       // await FireBaseManager.Post("noticias", Noticia);
+        Noticia.imagen = imagen;
+
+        await FireBaseManager.Post("noticias", Noticia);
         await this.Navigation.PopModalAsync();
     }
 
