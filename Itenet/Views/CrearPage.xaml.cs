@@ -49,6 +49,20 @@ public partial class CrearPage : ContentPage
 
     async void onPublicar(object sender, EventArgs e)
     {
+        if (string.IsNullOrEmpty(Noticia.titulo))
+        {
+            await DisplayAlert("Requerido", "Debes colocar un titulo.", "OK");
+            txtTitulo.Focus();
+            return;
+        }
+
+        if (string.IsNullOrEmpty(Noticia.mensaje))
+        {
+            await DisplayAlert("Requerido", "Debes colocar un mensaje.", "OK");
+            txtMensaje.Focus();
+            return;
+        }
+
         string imagen = await StorageManager.Upload();
 
         if(string.IsNullOrEmpty(imagen))

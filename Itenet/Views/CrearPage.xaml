@@ -32,8 +32,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <custom:BorderlessEntry Grid.Row="0" FontFamily="PoppinsBold" Text="{Binding Noticia.titulo}" ClearButtonVisibility="WhileEditing" Placeholder="Añade un titulo" PlaceholderColor="#808080" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold" FontSize="18"/>
-            <custom:BorderlessEditor Grid.Row="1" FontFamily="PoppinsBold" Text="{Binding Noticia.mensaje}" Placeholder="Añade un mensaje" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" VerticalOptions="Fill" FontAttributes="None" FontSize="14"/>
+            <custom:BorderlessEntry x:Name="txtTitulo" Grid.Row="0" FontFamily="PoppinsBold" Text="{Binding Noticia.titulo}" ClearButtonVisibility="WhileEditing" Placeholder="Añade un titulo" PlaceholderColor="#808080" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold" FontSize="18"/>
+            <custom:BorderlessEditor x:Name="txtMensaje" Grid.Row="1" FontFamily="PoppinsBold" Text="{Binding Noticia.mensaje}" Placeholder="Añade un mensaje" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" VerticalOptions="Fill" FontAttributes="None" FontSize="14"/>
         </Grid>
 
         <Grid Grid.Row="2">
