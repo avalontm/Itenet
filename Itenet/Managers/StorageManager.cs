@@ -1,9 +1,5 @@
-﻿using Firebase.Storage;
-using Microsoft.Maui.Storage;
-using Plugin.Firebase.Android;
-using Plugin.Firebase.Storage;
+﻿using Plugin.Firebase.Storage;
 using System.Diagnostics;
-using System.Text;
 
 namespace Itenet
 {
@@ -14,8 +10,8 @@ namespace Itenet
             var customFileType = new FilePickerFileType(
                 new Dictionary<DevicePlatform, IEnumerable<string>>
                 {
-                    { DevicePlatform.iOS, new[] { "image/jpeg", "image/webp", "image/gif", "image/png" } }, 
-                    { DevicePlatform.Android, new[] { "image/jpeg", "image/webp", "image/gif", "image/png" } } 
+                    { DevicePlatform.iOS, new[] { "image/jpeg", "image/webp", "image/gif", "image/png" } },
+                    { DevicePlatform.Android, new[] { "image/jpeg", "image/webp", "image/gif", "image/png" } }
                 });
 
             PickOptions options = new()
