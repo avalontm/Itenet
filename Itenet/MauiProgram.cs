@@ -3,6 +3,9 @@ using Microsoft.Maui.LifecycleEvents;
 using Plugin.Firebase.CloudMessaging;
 using Plugin.Firebase.Shared;
 using CommunityToolkit.Maui;
+using Plugin.Firebase.Auth;
+using Plugin.Firebase.Storage;
+
 
 #if IOS
 using Plugin.Firebase.iOS;
@@ -24,15 +27,19 @@ public static class MauiProgram
             .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
 			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+                fonts.AddFont("Inter-Regular.ttf", "InterRegular");
+                fonts.AddFont("Inter-SemiBold.ttf", "InterSemiBold");
+                fonts.AddFont("Poppins-Bold.ttf", "PoppinsBold");
+            });
 
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+        Controls.BorderlessEntry.Configure();
+        Controls.BorderlessEditor.Configure();
+
+        return builder.Build();
 	}
 
     private static MauiAppBuilder RegisterFirebaseServices(this MauiAppBuilder builder)
@@ -52,14 +59,18 @@ public static class MauiProgram
         });
 
 #if __MOBILE__
+        builder.Services.AddSingleton(_ => CrossFirebaseAuth.Current);
         builder.Services.AddSingleton(_ => CrossFirebaseCloudMessaging.Current);
+        builder.Services.AddSingleton(_ => CrossFirebaseStorage.Current);
 #endif
         return builder;
     }
 #if __MOBILE__
     private static CrossFirebaseSettings CreateCrossFirebaseSettings()
     {
-        return new CrossFirebaseSettings(isCloudMessagingEnabled: true);
+        return new CrossFirebaseSettings(isAuthEnabled: true, 
+            isCloudMessagingEnabled: true, 
+            isStorageEnabled: true);
     }
 #endif
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Itenet.Views.InfoPage"
+             Title="Info">
+    
+    <VerticalStackLayout>
+        <Label Margin="5" FontFamily="PoppinsBold" Text="{Binding Noticia.titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" />
+        <Label Margin="5,0,0,0" FontFamily="PoppinsBold" Text="{Binding Noticia.fecha, StringFormat='{}{0:MMMM dd, yyyy}'}" TextColor="LightGray" FontSize="8"/>
+
+        <Label Margin="5" FontFamily="Inter" Text="{Binding Noticia.mensaje}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontSize="14" FontAttributes="None" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" />
+
+        <Image Margin="5" Source="{Binding Noticia.imagen}" Aspect="AspectFill"/>
+    </VerticalStackLayout>
+</ContentPage>

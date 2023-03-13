@@ -1,6 +1,8 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
 using Itenet.Models;
+using Microsoft.Maui.Layouts;
+using Plugin.Firebase.Auth;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -42,13 +44,31 @@ public partial class MainPage : ContentPage
         }
     }
 
+    bool _isAuth;
+    public bool isAuth
+    {
+        get
+        {
+            return _isAuth;
+        }
+        set
+        {
+            _isAuth = value;
+            OnPropertyChanged("isAuth");
+        }
+    }
+
+
+    public static MainPage Instance { private set; get; }
 
     public MainPage()
 	{
 		InitializeComponent();
+        Instance = this;
         RefreshCommand = new Command(onRefreshCommand);
         BindingContext = this;
     }
+
 
     async void onRefreshCommand(object obj)
     {
@@ -84,6 +104,14 @@ public partial class MainPage : ContentPage
                     await borde.ScaleTo(0.98, 50);
                     await borde.ScaleTo(1, 50);
                     noticia.tapped = false;
+
+                    //Mostramos la ventana de crear publicacion
+                    if (InfoPage.Instance == null)
+                    {
+                        InfoPage page = new InfoPage();
+                        page.Noticia = noticia;
+                        await this.Navigation.PushAsync(page);
+                    }
                 }
             }
         }
@@ -127,7 +155,8 @@ public partial class MainPage : ContentPage
             await button.ScaleTo(0.95, 50);
             await button.ScaleTo(1, 50);
         }
-        Debug.WriteLine($"[onPerfil]");
+
+        isAuth = await AuthManager.Login();
     }
 }
 

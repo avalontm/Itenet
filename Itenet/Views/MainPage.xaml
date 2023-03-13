@@ -7,36 +7,37 @@
     <AbsoluteLayout>
 
         <!-- CONTENIDO -->
-        <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}" RefreshColor="Orange" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-            <CollectionView ItemsSource="{Binding Noticias}" >
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border Margin="10,5,10,5" BackgroundColor="{AppThemeBinding Light={StaticResource White }, Dark={StaticResource Black}}" StrokeThickness="0.5" Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}" MinimumHeightRequest="180">
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer  Tapped="onNoticiaTapped" />
-                            </Border.GestureRecognizers>
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="5" />
-                            </Border.StrokeShape>
+        <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}" RefreshColor="Orange" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"  Margin="0,0,0,60" >
+            <CollectionView ItemsSource="{Binding Noticias}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="10,5,10,5" BackgroundColor="{AppThemeBinding Light={StaticResource White }, Dark={StaticResource Black}}" StrokeThickness="0.5" Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}" MinimumHeightRequest="180">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer  Tapped="onNoticiaTapped" />
+                                </Border.GestureRecognizers>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
 
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
 
-                                <Label Grid.Row="0" Margin="5" Text="{Binding titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold" FontSize="14"/>
-                                <Label Grid.Row="1" Margin="5,0,0,0" Text="{Binding fecha, StringFormat='{}{0:MMMM dd, yyyy}'}" TextColor="LightGray" FontSize="8"/>
-                                <Label Grid.Row="2" Margin="5" Text="{Binding mensaje}" TextColor="{StaticResource Gray300}" FontAttributes="None" LineBreakMode="WordWrap" MaxLines="6" FontSize="12"/>
-                                <Image Grid.Row="3" Margin="5" Source="{Binding imagen}" Aspect="Center"/>
-                            </Grid>
+                                    <Label Grid.Row="0" Margin="5" FontFamily="PoppinsBold" Text="{Binding titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold" FontSize="14"/>
+                                    <Label Grid.Row="1" Margin="5,0,0,0" FontFamily="PoppinsBold" Text="{Binding fecha, StringFormat='{}{0:MMMM dd, yyyy}'}" TextColor="LightGray" FontSize="8"/>
+                                    <Label Grid.Row="2" Margin="5" FontFamily="PoppinsBold" Text="{Binding mensaje}" TextColor="{StaticResource Gray300}" FontAttributes="None" LineBreakMode="WordWrap" MaxLines="6" FontSize="12"/>
+                                    <Image Grid.Row="3" Margin="5" Source="{Binding imagen}" Aspect="Center"/>
+                                </Grid>
 
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+   
         </RefreshView>
 
         <!-- MENU ABAJO -->
@@ -56,12 +57,12 @@
                         </Grid.RowDefinitions>
 
                         <ImageButton Grid.Row="0" Source="icon_home.png" WidthRequest="28" HeightRequest="28" Aspect="AspectFit" Clicked="onInicio" bh:TintColorBehavior.AttachBehavior="True"/>
-                        <Label Grid.Row="1" Text="Inicio" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                        <Label Grid.Row="1" FontFamily="PoppinsBold" Text="Inicio" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
                     </Grid>
 
                 </Grid>
                 
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="1" IsVisible="{Binding isAuth}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
@@ -69,7 +70,7 @@
                         </Grid.RowDefinitions>
 
                         <ImageButton Grid.Row="0" Source="icon_crear.png" WidthRequest="28" HeightRequest="28" Aspect="AspectFit" Clicked="onCrear" bh:TintColorBehavior.AttachBehavior="True"/>
-                        <Label Grid.Row="1" Text="Crear" VerticalTextAlignment="Center"  HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                        <Label Grid.Row="1" FontFamily="PoppinsBold" Text="Crear" VerticalTextAlignment="Center"  HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
                     </Grid>
                    
                 </Grid>
@@ -82,7 +83,7 @@
                         </Grid.RowDefinitions>
 
                         <ImageButton Grid.Row="0" Source="icon_perfil.png" WidthRequest="28" HeightRequest="28" Aspect="AspectFit" Clicked="onPerfil" bh:TintColorBehavior.AttachBehavior="True"/>
-                        <Label Grid.Row="1" Text="Perfil" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                        <Label Grid.Row="1" FontFamily="PoppinsBold" Text="Perfil" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
                     </Grid>
 
                 </Grid>

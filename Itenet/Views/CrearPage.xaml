@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Itenet.Views.CrearPage"
              xmlns:bh="clr-namespace:Itenet.Behaviors"
+             xmlns:custom="clr-namespace:Itenet.Controls"
              Title="CrearPage">
 
     <Grid>
@@ -22,7 +23,7 @@
 
             <ImageButton Margin="5" Grid.Column="0" Source="icon_cerrar.png" WidthRequest="32" HeightRequest="32" Aspect="AspectFit" Clicked="onCerrar" bh:TintColorBehavior.AttachBehavior="True"/>
 
-            <Button Margin="5" Grid.Column="2" Text="Publicar" Clicked="onPublicar" TextColor="White" BackgroundColor="#2897c7" WidthRequest="120" HeightRequest="42" CornerRadius="20"/>
+            <Button Margin="5" Grid.Column="2" FontFamily="PoppinsBold" Text="Publicar" Clicked="onPublicar" TextColor="White" BackgroundColor="#2897c7" WidthRequest="120" HeightRequest="42" CornerRadius="20"/>
         </Grid>
 
         <Grid Grid.Row="1" Margin="5">
@@ -31,8 +32,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Entry Grid.Row="0" Text="{Binding Noticia.titulo}" Placeholder="Añade un titulo" PlaceholderColor="#808080" FontAttributes="Bold" FontSize="18"/>
-            <Editor Grid.Row="1" Text="{Binding Noticia.mensaje}" Placeholder="Añade un mensaje" VerticalOptions="Fill" FontAttributes="None" FontSize="14"/>
+            <custom:BorderlessEntry Grid.Row="0" FontFamily="PoppinsBold" Text="{Binding Noticia.titulo}" ClearButtonVisibility="WhileEditing" Placeholder="Añade un titulo" PlaceholderColor="#808080" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold" FontSize="18"/>
+            <custom:BorderlessEditor Grid.Row="1" FontFamily="PoppinsBold" Text="{Binding Noticia.mensaje}" Placeholder="Añade un mensaje" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" VerticalOptions="Fill" FontAttributes="None" FontSize="14"/>
         </Grid>
 
         <Grid Grid.Row="2">

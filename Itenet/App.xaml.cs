@@ -8,7 +8,7 @@ public partial class App : Application
 	public App()
 	{
 		InitializeComponent();
-        Application.Current.UserAppTheme = AppTheme.Light;
+       // Application.Current.UserAppTheme = AppTheme.Light;
         FireBaseManager.Init();
         MainPage = new AppShell();
 	}

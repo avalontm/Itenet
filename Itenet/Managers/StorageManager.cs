@@ -1,46 +1,49 @@
-﻿using Firebase.Auth;
-using Firebase.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Firebase.Storage;
+using Microsoft.Maui.Storage;
+using Plugin.Firebase.Android;
+using Plugin.Firebase.Storage;
+using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Itenet.Managers
+namespace Itenet
 {
     public static class StorageManager
     {
         public static async Task Upload()
         {
-            /*
-            // Get any Stream - it can be FileStream, MemoryStream or any other type of Stream
-            var stream = File.Open(@"C:\Users\you\file.png", FileMode.Open);
-       
-                  //authentication
-                  var auth = new FirebaseAuthProvider(new FirebaseConfig("api_key"));
-            var a = await auth.SignInWithEmailAndPasswordAsync("email", "password");
+            var customFileType = new FilePickerFileType(
+                new Dictionary<DevicePlatform, IEnumerable<string>>
+                {
+                    { DevicePlatform.iOS, new[] { "image/jpeg", "image/webp", "image/gif", "image/png" } }, 
+                    { DevicePlatform.Android, new[] { "image/jpeg", "image/webp", "image/gif", "image/png" } } 
+                });
 
-            // Constructr FirebaseStorage, path to where you want to upload the file and Put it there
-            var task = new FirebaseStorage(
-                "gs://itenet-25862.appspot.com",
+            PickOptions options = new()
+            {
+                PickerTitle = "Selecciona una imagen",
+                FileTypes = customFileType,
+            };
 
-                 new FirebaseStorageOptions
-                 {
-                     AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
-                     ThrowOnCancel = true,
-                 })
-                .Child("data")
-                .Child("random")
-                .Child("file.png")
-                .PutAsync(stream);
+            var result = await FilePicker.Default.PickAsync(options);
 
-            // Track progress of the upload
-            task.Progress.ProgressChanged += (s, e) => Console.WriteLine($"Progress: {e.Percentage} %");
+            if (result != null)
+            {
+                try
+                {
+                    Stream fileToUpload = await result.OpenReadAsync();
+                    
+                    var storage = CrossFirebaseStorage.Current.GetRootReference();
 
-            // await the task to wait until upload completes and get the download url
-            var downloadUrl = await task;
-            */
-            
+                    await storage
+                         .GetChild($"{DateTime.Now.ToString("yyyyMMdd_HHmmss")}_{result.FileName}")
+                         .PutStream(fileToUpload)
+                         .AwaitAsync();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"[Upload] {ex}");
+                }
+            }
         }
     }
 }

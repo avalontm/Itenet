@@ -50,8 +50,8 @@ public partial class CrearPage : ContentPage
     async void onPublicar(object sender, EventArgs e)
     {
         Noticia.fecha = DateTime.Now;
-
-        await FireBaseManager.Post("noticias", Noticia);
+        await StorageManager.Upload();
+       // await FireBaseManager.Post("noticias", Noticia);
         await this.Navigation.PopModalAsync();
     }
 
