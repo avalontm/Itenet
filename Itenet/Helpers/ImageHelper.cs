@@ -14,7 +14,9 @@ namespace Itenet
         {
             if (source is StreamImageSource)
             {
-               return ((StreamImageSource)source).Stream(CancellationToken.None).Result;
+                Stream stream = ((StreamImageSource)source).Stream(CancellationToken.None).Result;
+                stream.Position = 0;
+                return stream;
             }
 
             return new MemoryStream();
