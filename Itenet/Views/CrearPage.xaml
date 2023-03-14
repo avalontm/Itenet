@@ -30,14 +30,81 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <custom:BorderlessEntry x:Name="txtTitulo" Grid.Row="0" FontFamily="PoppinsBold" Text="{Binding Noticia.titulo}" ClearButtonVisibility="WhileEditing" Placeholder="Añade un titulo" PlaceholderColor="#808080" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold" FontSize="18"/>
             <custom:BorderlessEditor x:Name="txtMensaje" Grid.Row="1" FontFamily="PoppinsBold" Text="{Binding Noticia.mensaje}" Placeholder="Añade un mensaje" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" VerticalOptions="Fill" FontAttributes="None" FontSize="14"/>
+
+            <Grid Grid.Row="2">
+                <Border Margin="5" Padding="5">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5,5,5,5" />
+                    </Border.StrokeShape>
+
+                    <Image Source="{Binding Noticia.imagen}" WidthRequest="80" HeightRequest="80" Aspect="AspectFit"/>
+                </Border>
+            </Grid>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" HeightRequest="120">
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" Padding="5">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,10,0,0" />
+                </Border.StrokeShape>
 
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Label Text="¿Que quieres publicar?" FontFamily="PoppinsBold" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    </Grid>
+                    
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" BackgroundColor="{StaticResource Gray100}" Padding="5" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="24,24,24,24" />
+                            </Border.StrokeShape>
+                            <ImageButton Padding="5" Source="icon_fuente.png" Clicked="onTexto" WidthRequest="42" HeightRequest="42" Aspect="AspectFit"/>
+                        </Border>
+
+                        <Border Grid.Column="1" BackgroundColor="{StaticResource Gray100}" Padding="5" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="24,24,24,24" />
+                            </Border.StrokeShape>
+                            <ImageButton Padding="5" Source="icon_enlace.png" Clicked="onLink" WidthRequest="42" HeightRequest="42" Aspect="AspectFit"/>
+                        </Border>
+
+                        <Border Grid.Column="2" BackgroundColor="{StaticResource Gray100}" Padding="5" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="24,24,24,24" />
+                            </Border.StrokeShape>
+                            <ImageButton Padding="5" Source="icon_image.png" Clicked="onImage" WidthRequest="42" HeightRequest="42" Aspect="AspectFit"/>
+                        </Border>
+
+                        <Border Grid.Column="3" BackgroundColor="{StaticResource Gray100}" Padding="5" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="24,24,24,24" />
+                            </Border.StrokeShape>
+                            <ImageButton Padding="5" Source="icon_video.png" Clicked="onVideo" WidthRequest="42" HeightRequest="42" Aspect="AspectFit"/>
+                        </Border>
+                        
+                    </Grid>
+                    
+                </Grid>
+                
+            </Border>
         </Grid>
     </Grid>
     

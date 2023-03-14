@@ -72,8 +72,12 @@
 	  <None Remove="Resources\Fonts\Poppins-Bold.ttf" />
 	  <None Remove="Resources\Images\icon_cerrar.svg" />
 	  <None Remove="Resources\Images\icon_crear.svg" />
+	  <None Remove="Resources\Images\icon_enlace.svg" />
+	  <None Remove="Resources\Images\icon_fuente.svg" />
 	  <None Remove="Resources\Images\icon_home.svg" />
+	  <None Remove="Resources\Images\icon_image.svg" />
 	  <None Remove="Resources\Images\icon_perfil.svg" />
+	  <None Remove="Resources\Images\icon_video.svg" />
 	  <None Remove="Resources\Images\ite_logo.svg" />
 	</ItemGroup>
 
@@ -92,10 +96,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Helpers\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="Views\CrearPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -104,6 +104,6 @@
 	  </MauiXaml>
 	</ItemGroup>
 
-	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionItenetHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionItenetHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionItenetHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

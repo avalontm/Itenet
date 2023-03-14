@@ -1,4 +1,6 @@
 using Itenet.Models;
+using System.Collections;
+using System.Diagnostics;
 
 namespace Itenet.Views;
 
@@ -63,20 +65,83 @@ public partial class CrearPage : ContentPage
             return;
         }
 
-        string imagen = await StorageManager.Upload();
-
-        if(string.IsNullOrEmpty(imagen))
-        {
-            await DisplayAlert("Error", "No se pudo subir la imagen", "OK");
-            return;
-        }
-
         Noticia.fecha = DateTime.Now;
-        Noticia.imagen = imagen;
+
+        if (Noticia.imagen != null)
+        {
+            Noticia.imagen = ImageSource.FromUri(new Uri(await StorageManager.Upload(Noticia.imagen.ToStream())));
+        }
 
         await FireBaseManager.Post("noticias", Noticia);
         await this.Navigation.PopModalAsync();
     }
 
-   
+    async void onImage(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 50);
+            await button.ScaleTo(1, 50);
+        }
+
+        var customFileType = new FilePickerFileType(
+                new Dictionary<DevicePlatform, IEnumerable<string>>
+                {
+                    { DevicePlatform.iOS, new[] { "image/jpeg", "image/webp", "image/gif", "image/png" } },
+                    { DevicePlatform.Android, new[] { "image/jpeg", "image/webp", "image/gif", "image/png" } }
+                });
+
+        PickOptions options = new()
+        {
+            PickerTitle = "Selecciona una imagen",
+            FileTypes = customFileType,
+        };
+
+        var result = await FilePicker.Default.PickAsync(options);
+
+        if (result != null)
+        {
+            Stream file = await result.OpenReadAsync();
+            Noticia.imagen = ImageSource.FromStream(() => file);
+            Debug.WriteLine($"[IMAGEN] {Noticia.imagen}");
+
+            if (Noticia.imagen == null)
+            {
+                await DisplayAlert("Error", "No se pudo subir la imagen", "OK");
+                return;
+            }
+        }
+    }
+
+
+    async void onTexto(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 50);
+            await button.ScaleTo(1, 50);
+        }
+    }
+
+    async void onLink(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 50);
+            await button.ScaleTo(1, 50);
+        }
+    }
+
+    async void onVideo(object sender, EventArgs e)
+    {
+        ImageButton button = sender as ImageButton;
+        if (button != null)
+        {
+            await button.ScaleTo(0.95, 50);
+            await button.ScaleTo(1, 50);
+        }
+    }
 }
