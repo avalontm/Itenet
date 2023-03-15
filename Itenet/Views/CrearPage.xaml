@@ -37,12 +37,36 @@
             <custom:BorderlessEditor x:Name="txtMensaje" Grid.Row="1" FontFamily="PoppinsBold" Text="{Binding Noticia.mensaje}" Placeholder="Añade un mensaje" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" VerticalOptions="Fill" FontAttributes="None" FontSize="14"/>
 
             <Grid Grid.Row="2">
-                <Border Margin="5" Padding="5">
+                <Border Margin="2" Padding="5">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="5,5,5,5" />
                     </Border.StrokeShape>
 
-                    <Image Source="{Binding Noticia.imagen}" WidthRequest="80" HeightRequest="80" Aspect="AspectFit"/>
+                    <CollectionView ItemsSource="{Binding Imagenes}" MinimumHeightRequest="64">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Horizontal" HorizontalItemSpacing="4" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Border StrokeThickness="0" BackgroundColor="{StaticResource Gray100}" Padding="5" VerticalOptions="Center" HorizontalOptions="Center">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="40,40,40,40" />
+                                        </Border.StrokeShape>
+                                        <Image Source="{Binding }" WidthRequest="64" HeightRequest="64" Aspect="AspectFit"/>
+                                    </Border>
+                                    <Border HeightRequest="32" WidthRequest="32" HorizontalOptions="End" VerticalOptions="Start" Opacity="0.75">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="32,32,32,32" />
+                                        </Border.StrokeShape>
+                                        <ImageButton Source="icon_cerrar.png" WidthRequest="28" HeightRequest="28" Clicked="onImagenBorrar"/>
+                                    </Border>
+                                </Grid>
+                              
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                   
                 </Border>
             </Grid>
         </Grid>

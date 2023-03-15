@@ -27,10 +27,20 @@
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <Label Grid.Row="0" Margin="5" FontFamily="PoppinsBold" Text="{Binding titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold" FontSize="14"/>
-                                    <Label Grid.Row="1" Margin="5,0,0,0" FontFamily="PoppinsBold" Text="{Binding fecha, StringFormat='{}{0:MMMM dd, yyyy}'}" TextColor="LightGray" FontSize="8"/>
-                                    <Label Grid.Row="2" Margin="5" FontFamily="PoppinsBold" Text="{Binding mensaje}" TextColor="{StaticResource Gray300}" FontAttributes="None" LineBreakMode="WordWrap" MaxLines="6" FontSize="12"/>
-                                    <Image Grid.Row="3" Margin="5" Source="{Binding imagen}" Aspect="Center"/>
+                                <Label Grid.Row="0" Margin="5" FontFamily="PoppinsBold" Text="{Binding titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontAttributes="Bold" FontSize="14"/>
+                                <Label Grid.Row="1" Margin="5,0,0,0" FontFamily="PoppinsBold" Text="{Binding fecha, StringFormat='{}{0:MMMM dd, yyyy}'}" TextColor="LightGray" FontSize="8"/>
+                                <Label Grid.Row="2" Margin="5" FontFamily="Inter" Text="{Binding mensaje}" TextColor="{StaticResource Gray300}" FontAttributes="None" LineBreakMode="WordWrap" MaxLines="6" FontSize="12"/>
+
+                                <CarouselView Grid.Row="3" Margin="5" ItemsSource="{Binding imagenes}">
+                                    <CarouselView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border StrokeThickness="0">
+                                                <Image Source="{Binding }" Aspect="Center" MinimumHeightRequest="10"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </CarouselView.ItemTemplate>
+                                </CarouselView>
+                                  
                                 </Grid>
 
                             </Border>

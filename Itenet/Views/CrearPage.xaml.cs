@@ -1,11 +1,35 @@
 using Itenet.Models;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using static Android.Provider.MediaStore;
 
 namespace Itenet.Views;
 
 public partial class CrearPage : ContentPage
 {
+    ObservableCollection<ImageSource> _imagenes;
+    public ObservableCollection<ImageSource> Imagenes
+    {
+        get { return _imagenes; }
+        set
+        {
+            _imagenes = value;
+            OnPropertyChanged("Imagenes");
+        }
+    }
+
+    ObservableCollection<byte[]> _data;
+    public ObservableCollection<byte[]> Data
+    {
+        get { return _data; }
+        set
+        {
+            _data = value;
+            OnPropertyChanged("Data");
+        }
+    }
+
     Noticia _noticia;
     public Noticia Noticia
     {
@@ -18,11 +42,14 @@ public partial class CrearPage : ContentPage
     }
 
     public static CrearPage Instance { get; private set; }
+
     public CrearPage()
 	{
 		InitializeComponent();
         Instance = this;
         Noticia = new Noticia();
+        Imagenes =new ObservableCollection<ImageSource>();
+        Data = new ObservableCollection<byte[]>();
         BindingContext = this;
 	}
 
@@ -67,9 +94,16 @@ public partial class CrearPage : ContentPage
 
         Noticia.fecha = DateTime.Now;
 
-        if (Noticia.imagen != null)
+        foreach (var data in Data)
         {
-            Noticia.imagen = ImageSource.FromUri(new Uri(await StorageManager.Upload(Noticia.imagen.ToStream())));
+            try
+            {
+                Noticia.imagenes.Add(ImageSource.FromUri(new Uri(await StorageManager.Upload(data))));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         await FireBaseManager.Post("noticias", Noticia);
@@ -103,14 +137,18 @@ public partial class CrearPage : ContentPage
         if (result != null)
         {
             Stream file = await result.OpenReadAsync();
-            Noticia.imagen = ImageSource.FromStream(() => file);
-            Debug.WriteLine($"[IMAGEN] {Noticia.imagen}");
 
-            if (Noticia.imagen == null)
+            if (file == null)
             {
-                await DisplayAlert("Error", "No se pudo subir la imagen", "OK");
+                await DisplayAlert("Error", "No se pudo cargar la imagen", "OK");
                 return;
             }
+
+            byte[] data = file.ToArray();
+            Data.Add(data);
+            Imagenes.Add(data.FromArray());
+
+            Debug.WriteLine($"[IMAGENES] {Imagenes.Count}");
         }
     }
 
@@ -144,4 +182,32 @@ public partial class CrearPage : ContentPage
             await button.ScaleTo(1, 50);
         }
     }
+
+    void onImagenBorrar(object sender, EventArgs e)
+    {
+        try
+        {
+            ImageButton button = sender as ImageButton;
+
+            if (button != null)
+            {
+                if (button.BindingContext is ImageSource)
+                {
+                    ImageSource imagen = button.BindingContext as ImageSource;
+
+                    if (imagen != null)
+                    {
+                        int Index = Imagenes.IndexOf(imagen);
+                        Imagenes.RemoveAt(Index);
+                        Data.RemoveAt(Index);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+        }
+    }
+
 }

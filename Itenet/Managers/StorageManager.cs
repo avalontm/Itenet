@@ -6,7 +6,7 @@ namespace Itenet
 {
     public static class StorageManager
     {
-        public static async Task<string> Upload(Stream stream)
+        public static async Task<string> Upload(byte[] source)
         {
             try
             {
@@ -15,7 +15,7 @@ namespace Itenet
 
                 await storage
                      .GetChild(File)
-                     .PutStream(stream)
+                     .PutBytes(source)
                      .AwaitAsync();
 
                 return await storage.GetChild(File).GetDownloadUrlAsync();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Image = Microsoft.Maui.Controls.Image;
 
 namespace Itenet.Behaviors
 {

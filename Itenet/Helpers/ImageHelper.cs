@@ -1,25 +1,35 @@
-﻿using Plugin.Firebase.Firestore;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Itenet
+﻿namespace Itenet
 {
     public static class ImageHelper
     {
-        public static Stream ToStream(this ImageSource source)
+        public static async Task<Stream> ToStream(this ImageSource source)
         {
-            if (source is StreamImageSource)
-            {
-                Stream stream = ((StreamImageSource)source).Stream(CancellationToken.None).Result;
-                stream.Position = 0;
-                return stream;
-            }
+            var _source = await ((StreamImageSource)source).Stream(CancellationToken.None);
 
-            return new MemoryStream();
+            using (MemoryStream ms = new MemoryStream())
+            {
+                _source.CopyTo(ms);
+                _source.Dispose();
+                return new MemoryStream(ms.ToArray());
+            }
+        }
+
+        public static ImageSource FromArray(this byte[] source)
+        {
+            return ImageSource.FromStream(() =>
+            {
+                return new MemoryStream(source);
+            });
+        }
+
+        public static byte[] ToArray(this Stream source)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                source.CopyTo(ms);
+                source.Dispose();
+                return ms.ToArray();
+            }
         }
     }
 }

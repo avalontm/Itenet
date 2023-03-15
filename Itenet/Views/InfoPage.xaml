@@ -3,13 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Itenet.Views.InfoPage"
              Title="Info">
-    
-    <VerticalStackLayout>
-        <Label Margin="5" FontFamily="PoppinsBold" Text="{Binding Noticia.titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" />
-        <Label Margin="5,0,0,0" FontFamily="PoppinsBold" Text="{Binding Noticia.fecha, StringFormat='{}{0:MMMM dd, yyyy}'}" TextColor="LightGray" FontSize="8"/>
 
-        <Label Margin="5" FontFamily="Inter" Text="{Binding Noticia.mensaje}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontSize="14" FontAttributes="None" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" />
+    <ScrollView VerticalScrollBarVisibility="Always" HorizontalScrollBarVisibility="Never">
+        <VerticalStackLayout>
+            <Label Margin="5" FontFamily="PoppinsBold" Text="{Binding Noticia.titulo}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" />
+            <Label Margin="5,0,0,0" FontFamily="PoppinsBold" Text="{Binding Noticia.fecha, StringFormat='{}{0:MMMM dd, yyyy}'}" TextColor="LightGray" FontSize="8"/>
 
-        <Image Margin="5" Source="{Binding Noticia.imagen}" Aspect="AspectFill"/>
-    </VerticalStackLayout>
+            <Label Margin="5" FontFamily="Inter" Text="{Binding Noticia.mensaje}" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontSize="14" FontAttributes="None" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" />
+
+            <CollectionView Margin="5" ItemsSource="{Binding Noticia.imagenes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="5" StrokeThickness="0">
+                            <Image Source="{Binding }" Aspect="AspectFit" MinimumHeightRequest="10" />
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+      
 </ContentPage>
